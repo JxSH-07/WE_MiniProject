@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import '../styles/allUsers.css'
 import axios from 'axios';
 
+import { API_BASE_URL } from '../config';
+
 const AllUsers = () => {
 
   const [users, setUsers] = useState([]);
@@ -12,7 +14,7 @@ const AllUsers = () => {
   },[]);
 
   const fetchUsers = async () =>{
-    await axios.get('http://localhost:6001/fetch-users').then(
+    await axios.get(`${API_BASE_URL}/fetch-users`).then(
       (response) =>{
         setUsers(response.data);
       }

@@ -3,6 +3,8 @@ import '../styles/Admin.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+import { API_BASE_URL } from '../config';
+
 const Admin = () => {
 
   const navigate = useNavigate();
@@ -18,19 +20,19 @@ const Admin = () => {
   }, [])
 
   const fetchData = async () =>{
-    await axios.get('http://localhost:6001/fetch-users').then(
+    await axios.get(`${API_BASE_URL}/fetch-users`).then(
       (response)=>{
         
         setUserCount(response.data.length -1);
         setUsers(response.data.filter(user => user.approval === 'not-approved'));
       }
     );
-    await axios.get('http://localhost:6001/fetch-bookings').then(
+    await axios.get(`${API_BASE_URL}/fetch-bookings`).then(
       (response)=>{
         setbookingCount(response.data.length);
       }
     );
-    await axios.get('http://localhost:6001/fetch-flights').then(
+    await axios.get(`${API_BASE_URL}/fetch-flights`).then(
       (response)=>{
         setFlightsCount(response.data.length);
       }
@@ -42,7 +44,7 @@ const Admin = () => {
   const approveRequest = async (id) =>{
       try{
 
-          await axios.post('http://localhost:6001/approve-operator', {id}).then(
+          await axios.post(`${API_BASE_URL}/approve-operator`, {id}).then(
             (response)=>{
               alert("Operator approved!!");
               fetchData();
@@ -57,7 +59,7 @@ const Admin = () => {
   const rejectRequest = async (id) =>{
     try{
 
-      await axios.post('http://localhost:6001/reject-operator', {id}).then(
+      await axios.post(`${API_BASE_URL}/reject-operator`, {id}).then(
         (response)=>{
           alert("Operator rejected!!");
           fetchData();

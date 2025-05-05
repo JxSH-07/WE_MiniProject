@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../styles/AllFlights.css';
 
+import { API_BASE_URL } from '../config';
+
 const AllFlights = () => {
     const [flights, setFlights] = useState([]);
     const navigate = useNavigate();
   
     
     const fetchFlights = async () =>{
-      await axios.get('http://localhost:6001/fetch-flights').then(
+      await axios.get(`${API_BASE_URL}/fetch-flights`).then(
         (response)=>{
           setFlights(response.data);
           console.log(response.data)

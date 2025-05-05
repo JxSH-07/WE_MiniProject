@@ -3,6 +3,8 @@ import '../styles/NewFlight.css'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import { API_BASE_URL } from '../config';
+
 const EditFlight = () => {
     const [flightName, setFlightName] = useState('');
     const [flightId, setFlightId] = useState('');
@@ -63,7 +65,7 @@ const EditFlight = () => {
       const inputs = {_id: id,flightName, flightId, origin, destination, 
         departureTime: startTime, arrivalTime, basePrice, totalSeats};
   
-      await axios.put('http://localhost:6001/update-flight', inputs).then(
+      await axios.put(`${API_BASE_URL}/update-flight`, inputs).then(
         async (response)=>{
           alert('Flight updated successfully!!');
           setFlightName('');

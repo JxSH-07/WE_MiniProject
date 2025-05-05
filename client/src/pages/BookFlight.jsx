@@ -4,6 +4,8 @@ import { GeneralContext } from '../context/GeneralContext';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import { API_BASE_URL } from '../config';
+
 const BookFlight = () => {
     const {id} = useParams();
 
@@ -77,7 +79,7 @@ const BookFlight = () => {
                                                   email, mobile, passengers: passengerDetails, totalPrice, 
                                                   journeyDate, seatClass: coachType} 
       
-      await axios.post('http://localhost:6001/book-ticket', inputs).then(
+      await axios.post(`${API_BASE_URL}/book-ticket`, inputs).then(
         (response)=>{
           alert("booking successful");
           navigate('/bookings');

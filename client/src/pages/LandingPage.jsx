@@ -3,6 +3,7 @@ import '../styles/LandingPage.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GeneralContext } from '../context/GeneralContext';
+import { API_BASE_URL } from '../config';
 
 const LandingPage = () => {
 
@@ -30,38 +31,38 @@ const LandingPage = () => {
   const [Flights, setFlights] = useState([]);
 
   const fetchFlights = async () =>{
-
-    if(checkBox){
-      if(departure !== "" && destination !== "" && departureDate && returnDate){
-        const date = new Date();
-        const date1 = new Date(departureDate);
-        const date2 = new Date(returnDate);
-        if(date1 > date && date2 > date1){
-          setError("");
-          await axios.get('http://localhost:6001/fetch-flights').then(
-              (response)=>{
-                setFlights(response.data);
-                console.log(response.data)
-              }
-           )
-        } else{ setError("Please check the dates"); }
-      } else{ setError("Please fill all the inputs"); }
-    }else{
-      if(departure !== "" && destination !== "" && departureDate){
-        const date = new Date();
-        const date1 = new Date(departureDate);
-        if(date1 >= date){
-          setError("");
-          await axios.get('http://localhost:6001/fetch-flights').then(
-              (response)=>{
-                setFlights(response.data);
-                console.log(response.data)
-              }
-           )
-        } else{ setError("Please check the dates"); }      
-      } else{ setError("Please fill all the inputs"); }
+    try {
+      if(checkBox){
+        if(departure !== "" && destination !== "" && departureDate && returnDate){
+          const date = new Date();
+          const date1 = new Date(departureDate);
+          const date2 = new Date(returnDate);
+          if(date1 > date && date2 > date1){
+            setError("");
+            console.log(`Fetching flights from: ${API_BASE_URL}/fetch-flights`);
+            const response = await axios.get(`${API_BASE_URL}/fetch-flights`);
+            console.log('Flights data:', response.data);
+            setFlights(response.data);
+          } else{ setError("Please check the dates"); }
+        } else{ setError("Please fill all the inputs"); }
+      }else{
+        if(departure !== "" && destination !== "" && departureDate){
+          const date = new Date();
+          const date1 = new Date(departureDate);
+          if(date1 >= date){
+            setError("");
+            console.log(`Fetching flights from: ${API_BASE_URL}/fetch-flights`);
+            const response = await axios.get(`${API_BASE_URL}/fetch-flights`);
+            console.log('Flights data:', response.data);
+            setFlights(response.data);
+          } else{ setError("Please check the dates"); }      
+        } else{ setError("Please fill all the inputs"); }
+      }
+    } catch (error) {
+      console.error('Error fetching flights:', error);
+      setError(`Network error: Unable to connect to the server. Please make sure the backend is running.`);
     }
-    }
+  }
     const {setTicketBookingDate} = useContext(GeneralContext);
     const userId = localStorage.getItem('userId');
 
@@ -155,11 +156,24 @@ const LandingPage = () => {
                     
                     ""}
                     <div>
-                      <button className="btn btn-primary" onClick={fetchFlights}>Search</button>
+                      <button 
+                        className="btn btn-primary" 
+                        onClick={() => {
+                          console.log('Search button clicked');
+                          console.log('Current state:', { departure, destination, departureDate, returnDate });
+                          fetchFlights();
+                        }}
+                      >
+                        Search
+                      </button>
                     </div>
 
                   </div>
-                  <p>{error}</p>
+                  {error && (
+                    <div className="alert alert-danger mt-3" role="alert">
+                      {error}
+                    </div>
+                  )}
               </div>
                   
                 {Flights.length > 0 
