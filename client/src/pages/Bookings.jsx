@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../styles/Bookings.css'
 import axios from 'axios';
 
+import { API_BASE_URL } from '../config';
+
 const Bookings = () => {
 
 
@@ -14,7 +16,7 @@ const Bookings = () => {
   }, [])
 
   const fetchBookings = async () =>{
-    await axios.get('http://localhost:6001/fetch-bookings').then(
+    await axios.get(`${API_BASE_URL}/fetch-bookings`).then(
       (response)=>{
         setBookings(response.data.reverse());
       }

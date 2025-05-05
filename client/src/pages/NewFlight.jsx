@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../styles/NewFlight.css'
 import axios from 'axios';
 
+import { API_BASE_URL } from '../config';
+
 const NewFlight = () => {
 
 
@@ -43,7 +45,7 @@ const NewFlight = () => {
       const inputs = {flightName, flightId, origin, destination, 
                         departureTime: startTime, arrivalTime, basePrice, totalSeats};
   
-      await axios.post('http://localhost:6001/add-Flight', inputs).then(
+      await axios.post(`${API_BASE_URL}/add-Flight`, inputs).then(
         async (response)=>{
           alert('Flight added successfully!!');
           setFlightName('');

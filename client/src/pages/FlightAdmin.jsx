@@ -3,6 +3,8 @@ import axios from 'axios'
 import '../styles/FlightAdmin.css'
 import { useNavigate } from 'react-router-dom';
 
+import { API_BASE_URL } from '../config';
+
 const FlightAdmin = () => {
 
   const navigate = useNavigate();
@@ -37,12 +39,12 @@ const FlightAdmin = () => {
   }, [])
 
   const fetchData = async () =>{
-    await axios.get('http://localhost:6001/fetch-bookings').then(
+    await axios.get(`${API_BASE_URL}/fetch-bookings`).then(
       (response)=>{
         setbookingCount(response.data.filter(booking => booking.flightName === localStorage.getItem('username')).length);
       }
     );
-    await axios.get('http://localhost:6001/fetch-flights').then(
+    await axios.get(`${API_BASE_URL}/fetch-flights`).then(
       (response)=>{
         setFlightsCount(response.data.filter(booking => booking.flightName === localStorage.getItem('username')).length);
       }

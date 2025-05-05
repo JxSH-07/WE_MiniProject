@@ -4,22 +4,40 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import { User, Booking, Flight } from './schemas.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
-app.use(cors());
+// Configure CORS with specific options
+app.use(cors({
+    origin: '*', // Allow all origins for testing purposes
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // Allow cookies to be sent
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Add a simple test route to verify the server is responding
+app.get('/test', (req, res) => {
+    res.json({ message: 'Server is running correctly' });
+});
 
 // mongoose setup
 
 const PORT = 6001;
-mongoose.connect('mongodb://localhost:27017/FlightBookingMERN', { 
+const dbURI = process.env.MONGO_URI;
+
+console.log('Attempting to connect to MongoDB...');
+mongoose.connect(dbURI, { 
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
 ).then(()=>{
+    console.log('MongoDB connected successfully!');
 
     // All the client-server activites
 
@@ -276,4 +294,7 @@ mongoose.connect('mongodb://localhost:27017/FlightBookingMERN', {
             console.log(`Running @ ${PORT}`);
         });
     }
-).catch((e)=> console.log(`Error in db connection ${e}`));
+).catch((e)=> {
+    console.error(`Error in MongoDB connection: ${e}`);
+    console.error('Please check your MongoDB connection string and make sure MongoDB is running');
+});
