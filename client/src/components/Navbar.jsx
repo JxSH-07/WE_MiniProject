@@ -21,6 +21,7 @@ const Navbar = () => {
 
                 <div className="nav-options" >
                     <p onClick={()=>navigate('/')}>Home</p>
+                    <p onClick={()=>navigate('/about')}>About</p>
                     <p onClick={()=>navigate('/auth')}>Login</p>
                 </div>
             
@@ -36,6 +37,7 @@ const Navbar = () => {
             <div className="nav-options" >
 
                 <p onClick={()=>navigate('/')}>Home</p>
+                <p onClick={()=>navigate('/about')}>About</p>
                 <p onClick={()=>navigate('/bookings')}>Bookings</p>
                 <p onClick={logout}>Logout</p>
 
@@ -48,6 +50,7 @@ const Navbar = () => {
                         <div className="nav-options" >
 
                             <p onClick={()=>navigate('/admin')}>Home</p>
+                            <p onClick={()=>navigate('/about')}>About</p>
                             <p onClick={()=>navigate('/all-users')}>Users</p>
                             <p onClick={()=>navigate('/all-bookings')}>Bookings</p>
                             <p onClick={()=>navigate('/all-flights')}>Flights</p>
@@ -61,6 +64,7 @@ const Navbar = () => {
                         <div className="nav-options" >
 
                             <p onClick={()=>navigate('/flight-admin')}>Home</p>
+                            <p onClick={()=>navigate('/about')}>About</p>
                             <p onClick={()=>navigate('/flight-bookings')}>Bookings</p>
                             <p onClick={()=>navigate('/flights')}>Flights</p>
                             <p onClick={()=>navigate('/new-flight')}>Add Flight</p>

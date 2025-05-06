@@ -9,6 +9,7 @@ import AllUsers from './pages/AllUsers';
 import AllBookings from './pages/AllBookings';
 import AllFlights from './pages/AllFlights';
 import NewFlight from './pages/NewFlight';
+import About from './pages/About';
 import {Routes, Route} from 'react-router-dom'
 import LoginProtector from './RouteProtectors/LoginProtector';
 import AuthProtector from './RouteProtectors/AuthProtector';
@@ -25,6 +26,7 @@ function App() {
 
       <Routes>
         <Route exact path = '' element={<LandingPage />} />
+        <Route path='/about' element={<About />} />
         <Route path='/auth' element={<LoginProtector> <Authenticate /> </LoginProtector>} />
         <Route path='/book-Flight/:id' element={<AuthProtector> <BookFlight /> </AuthProtector>} />
         <Route path='/bookings' element={<AuthProtector> <Bookings /> </AuthProtector>} />
