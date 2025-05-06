@@ -144,3 +144,57 @@
   margin-top: 8vh;
   font-size: 1rem;
 }
+
+.section-contact{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 50px;
+}
+
+.section-contact h1{
+    font-size: 2rem;
+    font-weight: 600;
+    color: #055791;
+    text-transform: uppercase;
+}
+    
+.cards-container{
+    display: flex;
+    gap: 20px;
+}
+
+.card{
+width: 45%;
+display: flex;
+flex-direction: column;
+align-items: start;
+padding: 20px;
+gap: 5px;
+}
+
+.card img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.card h4{
+    color: #055791;
+}
+
+.card a{
+    color: #055791;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer{
+    text-align: center;
+    color: #055791;
+    margin-bottom: 20px;
+}   
